@@ -24,61 +24,76 @@ fun ListarUsuariosScreen(nav: NavController, vm: UserViewModel = viewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(16.dp) // menos padding general
     ) {
         Text("Lista de Usuarios", style = MaterialTheme.typography.headlineSmall)
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(12.dp))
 
         users.forEach { user ->
-            Row(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(vertical = 6.dp),
+                colors = CardDefaults.cardColors(containerColor = Color(0xFFF5F5F5))
             ) {
-                Text("${user.name} - ${user.email}")
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(12.dp)
+                ) {
+                    Text(user.name, style = MaterialTheme.typography.titleMedium)
+                    Text(user.email, style = MaterialTheme.typography.bodyMedium, color = Color.Gray)
 
-                Row {
-                    Button(
-                        onClick = { nav.navigate("editarUsuario/${user.id}") },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = burdeo,
-                            contentColor = Color.White
-                        ),
-                        modifier = Modifier.padding(end = 8.dp)
-                    ) {
-                        Text("Editar")
-                    }
-                    Button(
-                        onClick = {
-                            user.id?.let { id ->
-                                vm.deleteUser(id)
-                                vm.loadUsers()
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color.Red,
-                            contentColor = Color.White
-                        )
-                    ) {
-                        Text("Eliminar")
-                    }
+                    Spacer(Modifier.height(8.dp))
 
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Button(
+                            onClick = { nav.navigate("editarUsuario/${user.id}") },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = burdeo,
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier.weight(1f),
+                            contentPadding = PaddingValues(vertical = 8.dp) // compacto
+                        ) {
+                            Text("Editar")
+                        }
+                        Button(
+                            onClick = {
+                                user.id?.let { id ->
+                                    vm.deleteUser(id)
+                                    vm.loadUsers()
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color.Red,
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier.weight(1f),
+                            contentPadding = PaddingValues(vertical = 8.dp)
+                        ) {
+                            Text("Eliminar")
+                        }
+                    }
                 }
             }
         }
-        Button (
-            onClick= {nav.navigate(Route.CrudUsuario.path)},
+
+        Spacer(Modifier.height(12.dp))
+
+        Button(
+            onClick = { nav.navigate(Route.CrudUsuario.path) },
             colors = ButtonDefaults.buttonColors(
                 containerColor = burdeo,
                 contentColor = Color.White
             ),
-            modifier = Modifier.padding(end = 8.dp)
-            ) {
+            modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(vertical = 10.dp)
+        ) {
             Text("Volver")
         }
-
-        }
     }
-
+}
