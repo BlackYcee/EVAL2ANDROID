@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- Tema para el Splash -->
+    <style name="Theme.App.Splash" parent="Theme.SplashScreen">
+        <!-- Color de fondo del splash -->
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        <!-- Icono que se muestra en el splash -->
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
+
+        <!-- Tema que se usará después del splash -->
+        <item name="postSplashScreenTheme">@style/Theme.Eval</item>
+    </style>
+
+
+
+    <style name="Theme.Eval" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>
